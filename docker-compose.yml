@@ -33,6 +33,7 @@ services:
   tiled:
     # see the file ./tiled/deploy/config.yml for detailed configuration of tiled
     image: ghcr.io/bluesky/tiled:0.1.0-b13
+    platform: linux/amd64
     container_name: tiled-server
     ports:
       - "127.0.0.1:8000:8000"
@@ -288,6 +289,7 @@ services:
   # Simulator 2: Unified real image simulator
   sim_unified:
     image: ghcr.io/als-computing/arroyosas:main
+    platform: linux/amd64
     container_name: sim_unified
     command: >
       python -m arroyosas.app.unified_sim_cli

@@ -1,8 +1,8 @@
 # Common settings
 common:
-  dataset: "timepix"  # "smi" or "trs" - determines which dataset config to use
-  autoencoder_type: "VAE"  # use VIT or VAE
-  dimred_type: "neural" #use joblib or neural
+  dataset: "smi"  # "smi", "timepix", or "trs" - determines which dataset config to use
+  autoencoder_type: "VIT"  # use VIT or VAE
+  dimred_type: "joblib" #use joblib or neural
 
 # Model configurations organized by dataset
 models:
@@ -13,8 +13,8 @@ models:
     dr_model_name: "smi_dr_umap_vit"
     weights_path: "../models/vit/vit_model_weights.npz"
     code_path: "../models/vit/vit.py"
-    dr_weights_path: "../models/vit/vit_joblib_test.joblib"
-    latent_dim: 64
+    dr_weights_path: "../models/vit/vit_joblib.joblib"
+    latent_dim: 512
     image_size: [512, 512]
     
   smi_vae:
