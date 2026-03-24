@@ -36,7 +36,7 @@ class XPSWebSocketListener(Listener):
         self.current_uuid = None
         self.tiled_base_uri = RESULTS_TILED_URI
         self.frame_counter = 0
-        self.tiled_prefix = tiled_prefix or "beamlines/bl931/processed"
+        self.tiled_prefix = tiled_prefix or "processed"
 
         # Initialize Redis model store to get experiment name
         try:
@@ -183,6 +183,6 @@ class XPSWebSocketListener(Listener):
     ) -> "XPSWebSocketListener":
         """Create listener from settings"""
         websocket_url = settings.websocket_url
-        tiled_prefix = settings.get("tiled_prefix", "beamlines/bl931/processed")
+        tiled_prefix = settings.get("tiled_prefix", "processed")
         logger.info(f"Listening for XPS frames on {websocket_url}")
         return cls(operator, websocket_url, tiled_prefix)

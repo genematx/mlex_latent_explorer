@@ -132,7 +132,7 @@ services:
       LIVE_TILED_API_KEY: '${LIVE_TILED_API_KEY}'
       RESULTS_TILED_URI: '${RESULTS_TILED_URI}'
       RESULTS_TILED_API_KEY: '${RESULTS_TILED_API_KEY}'
-      TILED_REPLAY_PREFIX: 'beamlines/bl931/processed'  # NEW: Add this line
+      TILED_REPLAY_PREFIX: 'processed'  # NEW: Add this line
       # Prefect
       PREFECT_API_URL: '${PREFECT_API_URL}'
       FLOW_NAME: '${FLOW_NAME}'
@@ -288,7 +288,9 @@ services:
 
   # Simulator 2: Unified real image simulator
   sim_unified:
-    image: ghcr.io/als-computing/arroyosas:main
+    build:
+      context: ../arroyosas
+    # image: ghcr.io/als-computing/arroyosas:main
     platform: linux/amd64
     container_name: sim_unified
     command: >

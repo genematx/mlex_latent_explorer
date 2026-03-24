@@ -89,7 +89,7 @@ class TiledResultsPublisher(Publisher):
                         else:
                             # Create the prefix path if it doesn't exist
                             logger.info(f"Creating prefix container: {segment}")
-                            container = container.create_container(segment)
+                            container = container.create_container(segment, access_tags=["tst_sandbox"])
 
             # Navigate to the root container and create the hierarchy
             self._setup_containers_sync(container)
@@ -154,7 +154,7 @@ class TiledResultsPublisher(Publisher):
                     container = container[segment]
                 else:
                     logger.info(f"Creating container: {segment}")
-                    container = container.create_container(segment)
+                    container = container.create_container(segment, access_tags=["tst_sandbox"])
 
             # Store reference to the root container
             self.root_container = container
@@ -171,7 +171,7 @@ class TiledResultsPublisher(Publisher):
             # Create Year container
             if year_str not in self.root_container:
                 logger.info(f"Creating year container: {year_str}")
-                self.root_container.create_container(year_str)
+                self.root_container.create_container(year_str, access_tags=["tst_sandbox"])
             else:
                 logger.info(f"Using existing year container: {year_str}")
             self.year_container = self.root_container[year_str]
@@ -179,7 +179,7 @@ class TiledResultsPublisher(Publisher):
             # Create Month container
             if month_str not in self.year_container:
                 logger.info(f"Creating month container: {month_str}")
-                self.year_container.create_container(month_str)
+                self.year_container.create_container(month_str, access_tags=["tst_sandbox"])
             else:
                 logger.info(f"Using existing month container: {month_str}")
             self.month_container = self.year_container[month_str]
@@ -187,7 +187,7 @@ class TiledResultsPublisher(Publisher):
             # Create Day container
             if day_str not in self.month_container:
                 logger.info(f"Creating day container: {day_str}")
-                self.month_container.create_container(day_str)
+                self.month_container.create_container(day_str, access_tags=["tst_sandbox"])
             else:
                 logger.info(f"Using existing day container: {day_str}")
             self.day_container = self.month_container[day_str]
@@ -210,7 +210,7 @@ class TiledResultsPublisher(Publisher):
             # Check if experiment container exists in day container (CHANGED from daily_container)
             if exp_name not in self.day_container:
                 logger.info(f"Creating experiment container: {exp_name}")
-                self.day_container.create_container(exp_name)
+                self.day_container.create_container(exp_name, access_tags=["tst_sandbox"])
 
             return self.day_container[exp_name]
         except Exception as e:
@@ -411,13 +411,13 @@ class TiledResultsPublisher(Publisher):
             # NEW: Create UUID container if it doesn't exist
             if table_key not in experiment_container:
                 logger.info(f"Creating UUID container: {table_key}")
-                experiment_container.create_container(table_key)
+                experiment_container.create_container(table_key, access_tags=["tst_sandbox"])
 
             uuid_container = experiment_container[table_key]
 
             # Write the DataFrame as "feature_vectors" inside the UUID container
             try:
-                uuid_container.write_dataframe(df, key="feature_vectors")
+                uuid_container.write_dataframe(df, key="feature_vectors", access_tags=["tst_sandbox"])
 
                 logger.info(
                     f"Successfully wrote {len(df)} vectors to '{table_key}/feature_vectors'"
